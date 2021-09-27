@@ -15,7 +15,7 @@ int main() {
 
     std::string actions[] = {"add","call","sms","exit"};
     std::string answer;
-    Smartphone nokia;
+    Smartphone* nokia = new Smartphone();
 
     do {
         std::cout << "\nInput one from the list of commands:" << std::endl;
@@ -29,20 +29,21 @@ int main() {
             if (!(is_correct_answer(answer,actions))) std::cout << "Incorrect!Repeat.\n>";
         } while (!(is_correct_answer(answer,actions)));
 
-        if (answer == actions[0]) nokia.phonebook_add();
+        if (answer == actions[0]) nokia->phonebook_add();
         else if (answer == actions[1]) {
             std::string calledSubscriber;
             std::cout << "Enter the contact name or phone number to call:";
             std::cin >> calledSubscriber;
-            nokia.call(calledSubscriber);
+            nokia->call(calledSubscriber);
         }
         else if (answer == actions[2]) {
             std::string addressee;
             std::cout << "Enter the contact name or phone number to send sms:";
             std::cin >> addressee;
-            nokia.send_sms(addressee);
+            nokia->send_sms(addressee);
         }
     } while (answer != "exit");
+    delete nokia;
+    nokia = nullptr;
     return 0;
-
 }
